@@ -1,0 +1,21 @@
+{
+  "name": "markstrap",
+  "version": "0.0.1",
+  "description": "static blogging",
+  "main": " ",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "strapdown",
+    "bootstrap",
+    "markdown",
+    "blog"
+  ],
+  "author": "Paul Apostol <devel.pa@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "grunt": "^0.4.5",
+    "grunt-strapdown": "^1.0.0"
+  }
+}
