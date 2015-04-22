@@ -2,13 +2,31 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>Strapdown.js - Instant and elegant Markdown documents</title>
+    <title>--- Strapdown.js - Instant and elegant Markdown documents ---</title>
     <meta name="description" content="Create Markdown documents using JavaScript and Bootstrap themes" />
 </head>
 <body>
+
+<topbar right>
+    <item><a href="index.html">Home</a></item>
+    <item><a href="template.html">Left</a></item>
+    <item><a href="template-right.html">Right</a></item>
+    <menu name="Dropdown Menu">
+        <item><a href="#">Item #1</a></item>
+        <item><a href="#">Item #2</a></item>
+        <item><a href="#">Item #3</a></item>
+        <item></item> <!-- add a divider -->
+        <item><a href="#">Item #4</a></item>
+    </menu>
+    <toc>My TOC</toc>
+    <item><a href="https://github.com/joedf/strapdown-topbar">Fork on Github</a></item>
+    <item><small>(Powered by <a href="http://strapdownjs.com/">StrapDown.js</a>)</small></item>
+</topbar>
+
 <textarea theme="united" style="display:none;">
 <%= contents %>
 </textarea>
+
 <script src="vendor.js"></script>
 </body>
 </html>
