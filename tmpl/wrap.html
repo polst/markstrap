@@ -6,24 +6,62 @@
     <title>--- Strapdown.js - Instant and elegant Markdown documents ---</title>
     <meta name="description" content="Create Markdown documents using JavaScript and Bootstrap themes" />
     <link rel="stylesheet" type="text/css" href="vendor.css">
-</head>
-<body>
 
-<topbar right>
-    <item><a href="index.html">Home</a></item>
-    <item><a href="template.html">Left</a></item>
-    <item><a href="template-right.html">Right</a></item>
-    <menu name="Dropdown Menu">
-        <item><a href="#">Item #1</a></item>
-        <item><a href="#">Item #2</a></item>
-        <item><a href="#">Item #3</a></item>
-        <item></item> <!-- add a divider -->
-        <item><a href="#">Item #4</a></item>
-    </menu>
-    <toc>My TOC</toc>
-    <item><a href="https://github.com/joedf/strapdown-topbar">Fork on Github</a></item>
-    <item><small>(Powered by <a href="http://strapdownjs.com/">StrapDown.js</a>)</small></item>
-</topbar>
+    <style>
+        /*.show-on-hover:hover > ul.dropdown-menu {*/
+            /*display: block;*/
+        /*}*/
+    </style>
+</head>
+<body style="margin-top: 70px;">
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="navbar-inner">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"  onclick="nbar_toggle()">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Brand</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar-main">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Link</a></li>
+                <li class="dropdown show-on-hover">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" onclick="dmenu_toggle(this,1)">Dropdown <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</nav>
+<!--<topbar right>-->
+    <!--<item><a href="index.html">Home</a></item>-->
+    <!--<item><a href="template.html">Left</a></item>-->
+    <!--<item><a href="template-right.html">Right</a></item>-->
+    <!--<menu name="Dropdown Menu">-->
+        <!--<item><a href="#">Item #1</a></item>-->
+        <!--<item><a href="#">Item #2</a></item>-->
+        <!--<item><a href="#">Item #3</a></item>-->
+        <!--<item></item> &lt;!&ndash; add a divider &ndash;&gt;-->
+        <!--<item><a href="#">Item #4</a></item>-->
+    <!--</menu>-->
+    <!--<toc>My TOC</toc>-->
+    <!--<item><a href="https://github.com/joedf/strapdown-topbar">Fork on Github</a></item>-->
+    <!--<item><small>(Powered by <a href="http://strapdownjs.com/">StrapDown.js</a>)</small></item>-->
+<!--</topbar>-->
 
 <textarea theme="united" style="display:none;">
 <%= contents %>

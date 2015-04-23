@@ -60,6 +60,7 @@ gulp.task('bower-js', function() {
   //var cfg = config.bower;
   //var params = config.params;
   var files = mainBowerFiles('**/*.js');
+  files.push('./code/markstrap.js');
   //console.dir(files);
   return gulp.src(files, { base: './' })
     .pipe($.plumber())

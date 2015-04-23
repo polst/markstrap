@@ -28,30 +28,31 @@
     "strapdown": "arturadib/strapdown#gh-pages",
     "katex-build": "~0.3.0",
     "google-code-prettify": "~1.0.4",
-    "strapdown-topbar": "joedf/strapdown-topbar#gh-pages"
+    "strapdown-topbar": "joedf/strapdown-topbar#gh-pages",
+    "strapdown-zeta": "ztrix/strapdown-zeta#gh-pages"
   },
   "overrides": {
     "bootstrap": {
-      "main": "x"
-    },
-    "strapdown": {
-      "main": [
-        "./src/strapdown.js",
-        "./src/strapdown.css"
-      ]
+      "main": "x",
+      "dependencies": {}
     },
     "highlight.js": {
       "main": [
         "highlight.pack.js"
       ]
     },
-    "strapdown-topbar": {
+    "mermaid": {
       "main": [
-        "./assets/strapdown/strapdown-topbar.js"
-      ],
-      "dependencies": {
-        "strapdow": "*"
-      }
+        "dist/mermaid.full.js",
+        "dist/mermaid.css"
+      ]
+    },
+    "katex-build": {
+      "main": [
+        "katex.min.js",
+        "katex.min.css",
+        "contrib/auto-render.min.js"
+      ]
     }
   }
 }
