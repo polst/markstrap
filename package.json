@@ -19,7 +19,7 @@
     "gulp-concat": "^2.5.2",
     "gulp-data": "^1.2.0",
     "gulp-data-json": "^0.1.0",
-    "gulp-filelist": "^0.1.1",
+    "gulp-filelist": "polst/gulp-filelist",
     "gulp-filter": "^2.0.2",
     "gulp-foreach": "^0.1.0",
     "gulp-load-plugins": "^0.10.0",
