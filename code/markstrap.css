@@ -13,3 +13,8 @@
 body {
   margin-top: 70px !important;
 }
+
+.navbar-nav>li>.dropdown-menu {
+  max-height: 768px;
+  overflow-y: auto;
+}

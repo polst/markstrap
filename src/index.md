@@ -18,7 +18,6 @@ Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
 aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
 cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
 culpa qui officia deserunt mollit anim id est laborum.
-&lt;/xmp&gt;
 
 ```
 
@@ -29,9 +28,7 @@ culpa qui officia deserunt mollit anim id est laborum.
 + Github-flavored Markdown (tables, syntax highlighting, etc)
 + Themeable
 
-<span class="blue">
-  \\( f(x) = \int_{-\infty}^\infty\hat f(\xi)\,e^{2 \pi i \xi x}\,d\xi \\)
-</span>
+\\( f(x) = \int_{-\infty}^\infty\hat f(\xi)\,e^{2 \pi i \xi x}\,d\xi \\)
 
 <div class="mermaid">
     graph TD;
@@ -56,7 +53,7 @@ For convenience the library is hosted at `strapdownjs.com` (as in the source abo
 
 ### Limitations
 
-It's an unlikely scenario, but since Strapdown uses the `<xmp>` tag to wrap your Markdown (so that users don't have to escape special HTML characters), your text can't contain the string `</xmp>`.
+It's an unlikely scenario.
 
 
 ### Credits
@@ -74,7 +71,7 @@ All credit goes to the projects below that make up most of Strapdown.js:
     <img style="width:40px; margin:0; padding-top:5px; margin-right:10px;" src="https://g.twimg.com/Twitter_logo_blue.png"/>
   </div>
   <div style="padding-top:15px; padding-bottom:10px;">
-    Follow the author <a href="http://twitter.com/r2r">@r2r</a> on Twitter
+    
   </div>
 </div>
 
