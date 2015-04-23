@@ -6,7 +6,10 @@ var gulp = require('gulp');
 var mainBowerFiles = require('main-bower-files');
 var $ = require('gulp-load-plugins')();
 var _ = require('lodash');
-var fs = require('fs');
+var sfa = require('stream-from-array');
+
+//var fs = require('fs');
+//var ps = require('path');
 //var order = function(all) {
 //  var bowers =  mainBowerFiles(all);
   //var sources = glob.sync(src);
@@ -119,6 +122,7 @@ gulp.task('layout', function() {
   return gulp.src([
     'tmpl/header.html',
     'tmpl/nav-header.html',
+    'tmp/locations.html',
     'tmp/MenuCodeThemes.html',
     'tmp/MenuLayoutThemes.html',
     'tmpl/nav-footer.html',
@@ -127,6 +131,59 @@ gulp.task('layout', function() {
     .pipe($.concat('layout.html'))
     .pipe(gulp.dest('./tmp/'))
   ;
+});
+
+//function FormatNumberLength(num, length) {
+//  var r = "" + num;
+//  while (r.length < length) {
+//    r = "0" + r;
+//  }
+//  return r;
+//}
+
+gulp.task('toc', function() {
+  return gulp.src("./src/**/*.md", { base: './src/' })
+    .pipe($.filelist('toc.json'))
+    .pipe($.data(function(file) {
+      var content = JSON.parse(file.contents.toString());
+      var newContent = {};
+
+      _.forEach(content, function(rec) {
+        var frags = rec.split('/');
+        if(frags.length > 1) {
+          var key = frags.shift();
+          if(!newContent[key])
+            newContent[key] = [];
+          newContent[key].push(frags.join('/'));
+        }
+        else {
+          if(!newContent['/'])
+            newContent['/'] = [];
+          newContent['/'].push(rec);
+        }
+      });
+
+      var m = _.map(newContent, function(v, k) {
+        return { name: k, items: v};
+      });
+
+      file.contents = new Buffer(JSON.stringify(m));
+    }))
+    .pipe(gulp.dest('./tmp/'))
+  ;
+});
+
+gulp.task('menus', function() {
+  return gulp.src('tmpl/nav.html')
+    .pipe($.data(function() {
+      var toc = require('./tmp/toc.json');
+      return { locations: toc };
+    }))
+    .pipe($.template())
+    .pipe($.rename(function (path) {
+      path.basename = "locations"
+    }))
+    .pipe(gulp.dest('./tmp/'));
 });
 
 gulp.task('mark', function() {
@@ -144,7 +201,9 @@ gulp.task('mark', function() {
 gulp.task('build', $.sequence(
   [ 'bower-js', 'bower-css', 'bootswatch', 'highlight', 'katex-fonts' ]
   ,
-  [ 'layout-menu', 'code-menu' ]
+  [ 'layout-menu', 'code-menu', 'toc' ]
+  ,
+  'menus'
   ,
   'layout'
   ,

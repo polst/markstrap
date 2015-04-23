@@ -1,0 +1,14 @@
+<% _.forEach(locations, function(location) {
+if(location.name === '/') {
+_.forEach(location.items, function(loc) { %>
+<li><a href="#"><%= loc %></a></li><% });  } else { %>
+<li class="dropdown show-on-hover">
+    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" onclick="dmenu_toggle(this,1)">
+        <%= location.name %> <span class="caret"></span></a>
+    <ul class="dropdown-menu" role="menu">
+        <% _.forEach(location.items, function(item) { %>
+        <li><a href="#"><%= item %></a></li><% }); %>
+    </ul>
+</li>
+<% } %>
+<% }); %>
