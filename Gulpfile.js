@@ -6,8 +6,8 @@ var gulp = require('gulp');
 var mainBowerFiles = require('main-bower-files');
 var $ = require('gulp-load-plugins')();
 
-var order = function(all) {
-  var bowers =  mainBowerFiles(all);
+//var order = function(all) {
+//  var bowers =  mainBowerFiles(all);
   //var sources = glob.sync(src);
 
   //var before = anysort.splice(sources, matches.before);
@@ -20,22 +20,37 @@ var order = function(all) {
   //  .concat(after.unmatched)
   //  .concat(after.matched)
   //  ;
-  return bowers;
-};
+  //return bowers;
+//};
 
+gulp.task('bootswatch', function() {
+  return gulp.src('./bower_components/bootswatch/**/*.min.css', {base: './bower_components/bootswatch'})
+    .pipe($.plumber())
+    .pipe(gulp.dest('./dist/themes/layout'))
+    //.pipe(browserSync.reload({stream:true}))
+    ;
+});
+
+
+gulp.task('highlight', function() {
+  return gulp.src('./bower_components/highlight.js/styles/*.css')
+    .pipe($.plumber())
+    .pipe($.minifyCss())
+    .pipe(gulp.dest('./dist/themes/highlight'))
+    //.pipe(browserSync.reload({stream:true}))
+    ;
+});
 
 gulp.task('bower-css', function() {
-  //var cfg = config.bower;
-  //var params = config.params;
-  var files = order('**/*.css');
-  console.dir(files);
+  var files = mainBowerFiles(['**/*.css', '!**/bootswatch/**/*.css']);
+  //console.dir(files);
   return gulp.src(files)
     .pipe($.plumber())
     //.pipe(plugin.if(params.srcmaps, plugin.sourcemaps.init()))
     .pipe($.minifyCss())
-    //.pipe(plugin.concat(cfg.out + '.css'))
+    .pipe($.concat('vendor.css'))
     //.pipe(plugin.if(params.srcmaps, plugin.sourcemaps.write('./')))
-    .pipe(gulp.dest('./dist/themes'))
+    .pipe(gulp.dest('./dist'))
     //.pipe(browserSync.reload({stream:true}))
     ;
 });
@@ -44,13 +59,12 @@ gulp.task('bower-css', function() {
 gulp.task('bower-js', function() {
   //var cfg = config.bower;
   //var params = config.params;
-  var files = order('**/*.js');
-//console.dir(files);
+  var files = mainBowerFiles('**/*.js');
   //console.dir(files);
   return gulp.src(files, { base: './' })
     .pipe($.plumber())
     //.pipe(plugin.if(params.srcmaps, plugin.sourcemaps.init()))
-    .pipe($.uglify())
+    //.pipe($.uglify())
     //.pipe(plugin.if(params.compress, plugin.uglify()))
     .pipe($.concat('vendor.js'))
     //.pipe(plugin.if(params.srcmaps, plugin.sourcemaps.write('./')))
@@ -72,4 +86,4 @@ gulp.task('mark', function() {
 });
 
 
-gulp.task('default', ['mark', 'bower-js', 'bower-css']);
+gulp.task('default', ['mark', 'bower-js', 'bower-css', 'bootswatch', 'highlight']);
