@@ -6,7 +6,10 @@ var gulp = require('gulp');
 var mainBowerFiles = require('main-bower-files');
 var $ = require('gulp-load-plugins')();
 var _ = require('lodash');
-var sfa = require('stream-from-array');
+//var sfa = require('stream-from-array');
+
+var s = require("underscore.string");
+_.mixin(s.exports());
 
 //var fs = require('fs');
 //var ps = require('path');

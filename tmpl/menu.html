@@ -3,6 +3,6 @@
         <%= menu %> <span class="caret"></span></a>
     <ul class="dropdown-menu" role="menu">
         <% _.forEach(themes, function(theme) { %>
-        <li><a href="#"><%= theme %></a></li><% }); %>
+        <li><a href="#" onclick="change_theme(<%= menu %>, <%= theme %>)"><%= _.humanize(theme) %></a></li><% }); %>
     </ul>
 </li>

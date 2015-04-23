@@ -19,7 +19,7 @@
 
   // Stylesheets
   var linkEl = document.createElement('link');
-  linkEl.href = 'themes/layout/'+theme+'/bootstrap.min.css';
+  linkEl.href = '/themes/layout/'+theme+'/bootstrap.min.css';
   linkEl.rel = 'stylesheet';
   document.head.appendChild(linkEl);
 
@@ -29,7 +29,7 @@
   codeTheme = codeTheme.toLowerCase();
 
   var linkCode = document.createElement('link');
-  linkCode.href = 'themes/highlight/'+codeTheme+'.css';
+  linkCode.href = '/themes/highlight/'+codeTheme+'.css';
   linkCode.rel = 'stylesheet';
   document.head.appendChild(linkCode);
 
