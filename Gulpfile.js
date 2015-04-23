@@ -154,17 +154,26 @@ gulp.task('toc', function() {
           var key = frags.shift();
           if(!newContent[key])
             newContent[key] = [];
-          newContent[key].push(frags.join('/'));
+          newContent[key].push(frags.join('/').slice(0, -3));
         }
         else {
           if(!newContent['/'])
             newContent['/'] = [];
-          newContent['/'].push(rec);
+          newContent['/'].push(rec.slice(0, -3));
         }
       });
 
       var m = _.map(newContent, function(v, k) {
-        return { name: k, items: v};
+        var name = k,
+          count = 0;
+        if(k !== '/') {
+          name = k.slice(3);
+          count = parseInt(k.slice(0,2));
+        }
+        var items = _.map(v, function(item) {
+          return item.slice(3);
+        });
+        return { count: count, name: name, items: items};
       });
 
       file.contents = new Buffer(JSON.stringify(m));
@@ -187,11 +196,12 @@ gulp.task('menus', function() {
 });
 
 gulp.task('mark', function() {
-
   return gulp.src("./src/**/*.md", { base: './src/' })
     .pipe($.wrap({src: 'tmp/layout.html'}))
     .pipe($.rename(function (path) {
-      path.extname = ".html"
+      path.extname = ".html";
+      path.basename = path.basename.slice(3);
+      if(path.dirname !== '.') path.dirname = path.dirname.slice(3);
     }))
     .pipe(gulp.dest("./dist"));
 
