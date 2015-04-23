@@ -25,11 +25,8 @@
     "marked": "~0.3.3",
     "highlight.js": "components/highlightjs#~8.5.0",
     "mermaid": "knsv/mermaid#master",
-    "strapdown": "arturadib/strapdown#gh-pages",
     "katex-build": "~0.3.0",
-    "google-code-prettify": "~1.0.4",
-    "strapdown-topbar": "joedf/strapdown-topbar#gh-pages",
-    "strapdown-zeta": "ztrix/strapdown-zeta#gh-pages"
+    "highlightjs-line-numbers.js": "wcoder/highlightjs-line-numbers.js#~1.0.0"
   },
   "overrides": {
     "bootstrap": {
@@ -52,6 +49,11 @@
         "katex.min.js",
         "katex.min.css",
         "contrib/auto-render.min.js"
+      ]
+    },
+    "highlightjs-line-numbers.js": {
+      "main": [
+        "dist/highlightjs-line-numbers.min.js"
       ]
     }
   }

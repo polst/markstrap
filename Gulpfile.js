@@ -23,6 +23,15 @@ var $ = require('gulp-load-plugins')();
   //return bowers;
 //};
 
+gulp.task('katex-fonts', function() {
+  return gulp.src('./bower_components/katex-build/fonts/*')
+    .pipe($.plumber())
+    .pipe(gulp.dest('./dist/fonts'))
+    //.pipe(browserSync.reload({stream:true}))
+    ;
+});
+
+
 gulp.task('bootswatch', function() {
   return gulp.src('./bower_components/bootswatch/**/*.min.css', {base: './bower_components/bootswatch'})
     .pipe($.plumber())
@@ -42,7 +51,8 @@ gulp.task('highlight', function() {
 });
 
 gulp.task('bower-css', function() {
-  var files = mainBowerFiles(['**/*.css', '!**/bootswatch/**/*.css']);
+  var files = mainBowerFiles('**/*.css');
+  files.push('./code/markstrap.css');
   //console.dir(files);
   return gulp.src(files)
     .pipe($.plumber())
@@ -57,8 +67,6 @@ gulp.task('bower-css', function() {
 
 
 gulp.task('bower-js', function() {
-  //var cfg = config.bower;
-  //var params = config.params;
   var files = mainBowerFiles('**/*.js');
   files.push('./code/markstrap.js');
   //console.dir(files);
@@ -77,7 +85,7 @@ gulp.task('bower-js', function() {
 
 gulp.task('mark', function() {
 
-  gulp.src("./src/**/*.md")
+  return gulp.src("./src/**/*.md")
     .pipe($.wrap({src: 'tmpl/wrap.html'}))
     .pipe($.rename(function (path) {
       path.extname = ".html"
@@ -87,4 +95,6 @@ gulp.task('mark', function() {
 });
 
 
-gulp.task('default', ['mark', 'bower-js', 'bower-css', 'bootswatch', 'highlight']);
+gulp.task('build', ['mark', 'bower-js', 'bower-css', 'bootswatch', 'highlight', 'katex-fonts']);
+
+gulp.task('default', ['build']);

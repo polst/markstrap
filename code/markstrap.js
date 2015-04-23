@@ -24,6 +24,15 @@
   document.head.appendChild(linkEl);
 
 
+  // Get highlighing
+  var codeTheme = markdownEl.getAttribute('code') || 'arta';
+  codeTheme = codeTheme.toLowerCase();
+
+  var linkCode = document.createElement('link');
+  linkCode.href = 'themes/highlight/'+codeTheme+'.css';
+  linkCode.rel = 'stylesheet';
+  document.head.appendChild(linkCode);
+
 
   //////////////////////////////////////////////////////////////////////
   //
@@ -39,8 +48,12 @@
 
 
   // KaTeXing
-
   renderMathInElement(document.body);
+
+  // Highlighting
+  hljs.initHighlightingOnLoad();
+
+  hljs.initLineNumbersOnLoad();
 
   // All done - show body
   document.body.style.display = '';
