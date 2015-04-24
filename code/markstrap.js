@@ -9,19 +9,25 @@
   }
 
   // Get theme
-  var theme = markdownEl.getAttribute('theme') || 'bootstrap';
-  theme = theme.toLowerCase();
+  if(!window.localStorage['themes']) {
+    var theme = markdownEl.getAttribute('theme') || 'bootstrap';
+    theme = theme.toLowerCase();
+    window.localStorage['themes'] = theme;
+  }
 
   // Stylesheets
-  window.themes = create_style('/themes/layout/'+theme+'/bootstrap.min.css');
-
+  //window.themes =
+    create_style('themes', getLayoutTheme());
 
   // Get highlighing
-  var codeTheme = markdownEl.getAttribute('code') || 'arta';
-  codeTheme = codeTheme.toLowerCase();
+  if(!window.localStorage['highlight']) {
+    var codeTheme = markdownEl.getAttribute('code') || 'arta';
+    codeTheme = codeTheme.toLowerCase();
+    window.localStorage['highlight'] = codeTheme;
+  }
 
-  window.highlight = create_style('/themes/highlight/'+codeTheme+'.css');
-
+  //window.highlight =
+    create_style('highlight', getCodeTheme());
 
   //////////////////////////////////////////////////////////////////////
   //
@@ -36,14 +42,11 @@
   document.body.replaceChild(container, markdownEl);
 
 
-
-
   // KaTeXing
   renderMathInElement(document.body);
 
   // Highlighting
   hljs.initHighlightingOnLoad();
-
   hljs.initLineNumbersOnLoad();
 
   // All done - show body
@@ -51,18 +54,15 @@
 })(window, document);
 
 function getLayoutTheme() {
-  var theme = window.localStorage['themes'] || markdownEl.getAttribute('theme') || 'bootstrap';
-  theme = theme.toLowerCase();
-  return '/themes/layout/'+theme+'/bootstrap.min.css';
+  return '/themes/layout/' + window.localStorage['themes'] + '/bootstrap.min.css';
 }
 
 function getCodeTheme() {
-  var theme = window.localStorage['highlight'] || markdownEl.getAttribute('code') || 'arta';
-  theme = theme.toLowerCase();
-  return '/themes/highlight/'+codeTheme+'.css';
+  return '/themes/highlight/' + window.localStorage['highlight'] + '.css';
 }
 
-function getTheme(type) {
+function getTheme(type, theme) {
+  window.localStorage[type] = theme;
   switch (type) {
     case 'themes':
       return getLayoutTheme();
@@ -76,14 +76,15 @@ function getTheme(type) {
 
 function change_theme(str, theme) {
   var type = str.toLowerCase();
-  window[type].href = '/themes/layout/'+theme+'/bootstrap.min.css';
+  document.getElementById('style-' + type).href = getTheme(type, theme);
 }
 
 // create element to attach style
-function create_style(href) {
+function create_style(type, href) {
   var linkEl = document.createElement('link');
   linkEl.href = href;
   linkEl.rel = 'stylesheet';
+  linkEl.id = 'style-' + type;
   document.head.appendChild(linkEl);
   return linkEl;
 }
@@ -98,7 +99,7 @@ function nbar_toggle(){
     nbar.className=nbar.className.replace(/open/g,"collapse");
   }
 }
-
+//Toggle dropdown menus
 function dmenu_toggle(p,x){
   var dmenu=(x===1)?p.parentNode:p;
   var dmenu_t=dmenu.className;
@@ -119,6 +120,8 @@ document.documentElement.addEventListener('mouseup', function(e){
   }
 });
 
+
+// makes mermaid to display SVG labels instead of HTML ones
 var mermaid_config = {
   startOnLoad:true,
   htmlLabels:false
