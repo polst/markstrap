@@ -36,6 +36,8 @@
   document.body.replaceChild(container, markdownEl);
 
 
+
+
   // KaTeXing
   renderMathInElement(document.body);
 
@@ -117,5 +119,8 @@ document.documentElement.addEventListener('mouseup', function(e){
   }
 });
 
-
+var mermaid_config = {
+  startOnLoad:true,
+  htmlLabels:false
+};
 
