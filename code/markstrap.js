@@ -2,6 +2,14 @@
  * Created by papostol on 23/04/2015.
  */
 
+function create_style(href) {
+  var linkEl = document.createElement('link');
+  linkEl.href = href;
+  linkEl.rel = 'stylesheet';
+  document.head.appendChild(linkEl);
+  return linkEl;
+}
+
 
 ;(function(window, document) {
   var markdownEl = document.getElementsByTagName('xmp')[0] || document.getElementsByTagName('textarea')[0];
@@ -18,20 +26,14 @@
   theme = theme.toLowerCase();
 
   // Stylesheets
-  var linkEl = document.createElement('link');
-  linkEl.href = '/themes/layout/'+theme+'/bootstrap.min.css';
-  linkEl.rel = 'stylesheet';
-  document.head.appendChild(linkEl);
+  window.themes = create_style('/themes/layout/'+theme+'/bootstrap.min.css');
 
 
   // Get highlighing
   var codeTheme = markdownEl.getAttribute('code') || 'arta';
   codeTheme = codeTheme.toLowerCase();
 
-  var linkCode = document.createElement('link');
-  linkCode.href = '/themes/highlight/'+codeTheme+'.css';
-  linkCode.rel = 'stylesheet';
-  document.head.appendChild(linkCode);
+  window.highlight = create_style('/themes/highlight/'+codeTheme+'.css');
 
 
   //////////////////////////////////////////////////////////////////////
@@ -59,6 +61,8 @@
   document.body.style.display = '';
 })(window, document);
 
+
+
 // Collapsible menu
 function nbar_toggle(){
   var nbar=document.getElementById("navbar-main");
@@ -78,6 +82,10 @@ function dmenu_toggle(p,x){
   }else{
     dmenu.className=dmenu.className + " open";
   }
+}
+
+function change_theme(type, theme) {
+  window[type.toLowerCase()].href = '/themes/layout/'+theme+'/bootstrap.min.css';
 }
 
 // Add handler : Hide Dropdowns when clicking outside
