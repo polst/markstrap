@@ -198,10 +198,32 @@ gulp.task('mark', function() {
       path.basename = path.basename.slice(3);
       if(path.dirname !== '.') path.dirname = path.dirname.slice(3);
     }))
-    .pipe(gulp.dest("./dist"));
+    .pipe(gulp.dest("./dist"))
+    .pipe(browserSync.reload({stream:true}))
+    ;
 
 });
 
+
+var browserSync = require('browser-sync');
+
+gulp.task('browserSync', function() {
+  return browserSync({
+    server: {
+      baseDir:'./dist'
+    },
+    files: ['dist/**/*.html']
+  });
+});
+
+gulp.task('make', function(cb) {
+    $.sequence('toc', 'menus', 'layout', 'mark')(cb);
+  }
+);
+
+gulp.task('watch', ['build', 'browserSync'], function() {
+  gulp.watch("./src/**/*.md", [ 'make' ]);
+});
 
 gulp.task('build', $.sequence(
   [ 'bower-js', 'bower-css', 'highlight', 'katex-fonts' ]
