@@ -104,7 +104,7 @@ gulp.task('bower-js', function() {
   return gulp.src(files, { base: './' })
     .pipe($.plumber())
     //.pipe(plugin.if(params.srcmaps, plugin.sourcemaps.init()))
-    .pipe($.uglify())
+    //.pipe($.uglify())
     //.pipe(plugin.if(params.compress, plugin.uglify()))
     .pipe($.concat('vendor.js'))
     //.pipe(plugin.if(params.srcmaps, plugin.sourcemaps.write('./')))
@@ -123,8 +123,8 @@ gulp.task('layout', function() {
     'tmpl/nav-footer.html',
     'tmpl/footer.html'
   ])
-    .pipe($.concat('layout.html'))
-    .pipe(gulp.dest('./tmp/'))
+    .pipe($.concat('index.html'))
+    .pipe(gulp.dest('./dist/'))
   ;
 });
 
@@ -192,13 +192,13 @@ gulp.task('menus', function() {
 
 gulp.task('mark', function() {
   return gulp.src("./src/**/*.md", { base: './src/' })
-    .pipe($.wrap({src: 'tmp/layout.html'}))
+    //.pipe($.wrap({src: 'tmp/layout.html'}))
     .pipe($.rename(function (path) {
-      path.extname = ".html";
+      //path.extname = ".html";
       path.basename = path.basename.slice(3);
       if(path.dirname !== '.') path.dirname = path.dirname.slice(3);
     }))
-    .pipe(gulp.dest("./dist"))
+    .pipe(gulp.dest("./dist/pages"))
     .pipe(browserSync.reload({stream:true}))
     ;
 

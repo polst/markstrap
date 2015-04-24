@@ -10,7 +10,7 @@
 
   // Get theme
   if(!window.localStorage['themes']) {
-    var theme = markdownEl.getAttribute('theme') || 'bootstrap';
+    var theme = document.body.getAttribute('theme') || 'bootstrap';
     theme = theme.toLowerCase();
     window.localStorage['themes'] = theme;
   }
@@ -21,7 +21,7 @@
 
   // Get highlighing
   if(!window.localStorage['highlight']) {
-    var codeTheme = markdownEl.getAttribute('code') || 'arta';
+    var codeTheme = document.body.getAttribute('code') || 'arta';
     codeTheme = codeTheme.toLowerCase();
     window.localStorage['highlight'] = codeTheme;
   }
@@ -50,7 +50,7 @@
   hljs.initLineNumbersOnLoad();
 
   // All done - show body
-  document.body.style.display = '';
+  //document.body.style.display = '';
 })(window, document);
 
 function getLayoutTheme() {
@@ -127,3 +127,33 @@ var mermaid_config = {
   htmlLabels:false
 };
 
+
+//http://www.openjs.com/articles/ajax/ahah_asynchronous_html_over_http/
+function ahah(url) {
+  var target = document.getElementById('content');
+  target.innerHTML = ' Fetching data...';
+  if (window.XMLHttpRequest) {
+    req = new XMLHttpRequest();
+  } else if (window.ActiveXObject) {
+    req = new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  if (req != undefined) {
+    req.onreadystatechange = function() {ahahDone(url, target);};
+    req.open("GET", url, true);
+    req.send("");
+  }
+}
+
+function ahahDone(url, target) {
+  if (req.readyState == 4) { // only if req is "loaded"
+    if (req.status == 200) { // only if "OK"
+      target.innerHTML = marked(req.responseText);
+      renderMathInElement(document.body);
+      var DOMContentLoaded_event = document.createEvent("Event")
+      DOMContentLoaded_event.initEvent("DOMContentLoaded", true, true)
+      window.document.dispatchEvent(DOMContentLoaded_event)
+    } else {
+      target.innerHTML=" AHAH Error:\n"+ req.status + "\n" +req.statusText;
+    }
+  }
+}

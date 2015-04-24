@@ -1,7 +1,7 @@
 <% _.forEach(locations, function(location) {
 if(location.name === '/') {
 _.forEach(location.items, function(loc) { %>
-<li><a href="/<%= loc %>.html"><%= _.humanize(loc) %></a></li><% });  } else { %>
+<li><a href="javascript:ahah('/pages/<%= loc %>.md')"><%= _.humanize(loc) %></a></li><% });  } else { %>
 <li class="dropdown show-on-hover">
     <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" onclick="dmenu_toggle(this,1)">
         <%= _.humanize(location.name) %> <span class="caret"></span></a>
