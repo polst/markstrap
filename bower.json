@@ -26,7 +26,8 @@
     "highlight.js": "components/highlightjs#~8.5.0",
     "mermaid": "knsv/mermaid#master",
     "katex-build": "~0.3.0",
-    "highlightjs-line-numbers.js": "wcoder/highlightjs-line-numbers.js#~1.0.0"
+    "highlightjs-line-numbers.js": "wcoder/highlightjs-line-numbers.js#~1.0.0",
+    "bootstrap-material-design": "~0.3.0"
   },
   "overrides": {
     "bootstrap": {
@@ -55,6 +56,10 @@
       "main": [
         "dist/highlightjs-line-numbers.min.js"
       ]
+    },
+    "bootstrap-material-design": {
+      "main": [],
+      "dependencies": {}
     }
   }
 }

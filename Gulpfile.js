@@ -33,6 +33,18 @@ gulp.task('bootswatch', function() {
     ;
 });
 
+gulp.task('material-css', function() {
+  return gulp.src([
+    './bower_components/bootstrap/dist/css/bootstrap.min.css',
+    './bower_components/bootstrap-material-design/dist/css/material.min.css'
+  ])
+    .pipe($.concat('bootstrap.min.css'))
+    .pipe($.rename(function (path) {
+      layoutThemes.push('material');
+    }))
+    .pipe(gulp.dest('./dist/themes/layout/material'));
+});
+
 gulp.task('layout-menu', function() {
   return gulp.src('tmpl/menu.html')
     .pipe($.template({ menu: 'Themes', themes: layoutThemes }))
@@ -192,7 +204,11 @@ gulp.task('mark', function() {
 
 
 gulp.task('build', $.sequence(
-  [ 'bower-js', 'bower-css', 'bootswatch', 'highlight', 'katex-fonts' ]
+  [ 'bower-js', 'bower-css', 'highlight', 'katex-fonts' ]
+  ,
+  'bootswatch'
+  ,
+  'material-css'
   ,
   [ 'layout-menu', 'code-menu', 'toc' ]
   ,
