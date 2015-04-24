@@ -2,24 +2,11 @@
  * Created by papostol on 23/04/2015.
  */
 
-function create_style(href) {
-  var linkEl = document.createElement('link');
-  linkEl.href = href;
-  linkEl.rel = 'stylesheet';
-  document.head.appendChild(linkEl);
-  return linkEl;
-}
-
-
 ;(function(window, document) {
   var markdownEl = document.getElementsByTagName('xmp')[0] || document.getElementsByTagName('textarea')[0];
   if (!markdownEl) {
     return;
   }
-
-  // Hide body until we're done fiddling with the DOM
-  //document.body.style.display = 'none';
-
 
   // Get theme
   var theme = markdownEl.getAttribute('theme') || 'bootstrap';
@@ -61,7 +48,43 @@ function create_style(href) {
   document.body.style.display = '';
 })(window, document);
 
+function getLayoutTheme() {
+  var theme = window.localStorage['themes'] || markdownEl.getAttribute('theme') || 'bootstrap';
+  theme = theme.toLowerCase();
+  return '/themes/layout/'+theme+'/bootstrap.min.css';
+}
 
+function getCodeTheme() {
+  var theme = window.localStorage['highlight'] || markdownEl.getAttribute('code') || 'arta';
+  theme = theme.toLowerCase();
+  return '/themes/highlight/'+codeTheme+'.css';
+}
+
+function getTheme(type) {
+  switch (type) {
+    case 'themes':
+      return getLayoutTheme();
+      break;
+    case 'highlight':
+      return getCodeTheme();
+      break;
+  }
+}
+
+
+function change_theme(str, theme) {
+  var type = str.toLowerCase();
+  window[type].href = '/themes/layout/'+theme+'/bootstrap.min.css';
+}
+
+// create element to attach style
+function create_style(href) {
+  var linkEl = document.createElement('link');
+  linkEl.href = href;
+  linkEl.rel = 'stylesheet';
+  document.head.appendChild(linkEl);
+  return linkEl;
+}
 
 // Collapsible menu
 function nbar_toggle(){
@@ -82,10 +105,6 @@ function dmenu_toggle(p,x){
   }else{
     dmenu.className=dmenu.className + " open";
   }
-}
-
-function change_theme(type, theme) {
-  window[type.toLowerCase()].href = '/themes/layout/'+theme+'/bootstrap.min.css';
 }
 
 // Add handler : Hide Dropdowns when clicking outside
