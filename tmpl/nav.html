@@ -1,13 +1,13 @@
 <% _.forEach(locations, function(location) {
 if(location.name === '/') {
 _.forEach(location.items, function(loc) { %>
-<li><a href="javascript:ahah('/pages/<%= loc %>.md')"><%= _.humanize(loc) %></a></li><% });  } else { %>
+<li><a href="javascript:loadPage('/pages/<%= loc %>.md')"><%= _.humanize(loc) %></a></li><% });  } else { %>
 <li class="dropdown show-on-hover">
     <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" onclick="dmenu_toggle(this,1)">
         <%= _.humanize(location.name) %> <span class="caret"></span></a>
     <ul class="dropdown-menu" role="menu">
         <% _.forEach(location.items, function(item) { %>
-        <li><a href="/<%= location.name %>/<%= item %>.html"><%= _.humanize(item) %></a></li><% }); %>
+        <li><a href="javascript:loadPage('/pages/<%= location.name %>/<%= item %>.md')"><%= _.humanize(item) %></a></li><% }); %>
     </ul>
 </li>
 <% }

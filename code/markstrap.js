@@ -43,12 +43,15 @@
 
 
   // KaTeXing
-  renderMathInElement(document.body);
+  //renderMathInElement(document.body);
 
   // Highlighting
-  hljs.initHighlightingOnLoad();
-  hljs.initLineNumbersOnLoad();
-
+  //hljs.initHighlightingOnLoad();
+  //hljs.initLineNumbersOnLoad();
+  if(!window.localStorage['page']) {
+    window.localStorage['page'] = '/pages/index.md';
+  }
+  ahah(window.localStorage['page']);
   // All done - show body
   //document.body.style.display = '';
 })(window, document);
@@ -127,6 +130,11 @@ var mermaid_config = {
   htmlLabels:false
 };
 
+function loadPage(url) {
+  if(url === window.localStorage['page']) return;
+  window.localStorage['page'] = url;
+  ahah(url);
+}
 
 //http://www.openjs.com/articles/ajax/ahah_asynchronous_html_over_http/
 function ahah(url) {
