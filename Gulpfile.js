@@ -6,29 +6,9 @@ var gulp = require('gulp');
 var mainBowerFiles = require('main-bower-files');
 var $ = require('gulp-load-plugins')();
 var _ = require('lodash');
-//var sfa = require('stream-from-array');
 
 var s = require("underscore.string");
 _.mixin(s.exports());
-
-//var fs = require('fs');
-//var ps = require('path');
-//var order = function(all) {
-//  var bowers =  mainBowerFiles(all);
-  //var sources = glob.sync(src);
-
-  //var before = anysort.splice(sources, matches.before);
-  //var middle = anysort.splice(before.unmatched, matches.middle);
-  //var after = anysort.splice(middle.unmatched, matches.after);
-
-  //return before.matched
-  //  .concat(bowers)
-  //  .concat(middle.matched)
-  //  .concat(after.unmatched)
-  //  .concat(after.matched)
-  //  ;
-  //return bowers;
-//};
 
 gulp.task('katex-fonts', function() {
   return gulp.src('./bower_components/katex-build/fonts/*')
@@ -96,7 +76,7 @@ gulp.task('bower-css', function() {
   return gulp.src(files)
     .pipe($.plumber())
     //.pipe(plugin.if(params.srcmaps, plugin.sourcemaps.init()))
-    //.pipe($.minifyCss())
+    .pipe($.minifyCss())
     .pipe($.concat('vendor.css'))
     //.pipe(plugin.if(params.srcmaps, plugin.sourcemaps.write('./')))
     .pipe(gulp.dest('./dist'))
@@ -112,7 +92,7 @@ gulp.task('bower-js', function() {
   return gulp.src(files, { base: './' })
     .pipe($.plumber())
     //.pipe(plugin.if(params.srcmaps, plugin.sourcemaps.init()))
-    //.pipe($.uglify())
+    .pipe($.uglify())
     //.pipe(plugin.if(params.compress, plugin.uglify()))
     .pipe($.concat('vendor.js'))
     //.pipe(plugin.if(params.srcmaps, plugin.sourcemaps.write('./')))
